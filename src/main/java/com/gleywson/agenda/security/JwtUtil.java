@@ -10,7 +10,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "CHAVE_SECRETA_SUPER_SEGURA_12345678901234567890CHAVE_SECRETA"; // Deve ter pelo menos 256 bits
+    private static final String SECRET_KEY = "ZnYLeNpJei2skT08Y/JCjdrKmwbZZxt2mNN2gULpHfMslyqP285QYR0y6NpeJVaEBf/kzjorCnbUOWfQy3iiOw=="; // Deve ter pelo menos 256 bits
     private static final long EXPIRATION_TIME = 86400000; // 1 dia em milissegundos
 
     private SecretKey getSigningKey() {
