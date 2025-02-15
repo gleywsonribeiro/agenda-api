@@ -28,4 +28,17 @@ public class CompromissoController {
     public ResponseEntity<List<Compromisso>> listarCompromissos() {
         return ResponseEntity.ok(compromissoService.listarCompromissosDoUsuario());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Compromisso> atualizarCompromisso(@PathVariable Long id, @RequestBody CompromissoRequest request) {
+        return ResponseEntity.ok(compromissoService.atualizarCompromisso(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarCompromisso(@PathVariable Long id) {
+        compromissoService.deletarCompromisso(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

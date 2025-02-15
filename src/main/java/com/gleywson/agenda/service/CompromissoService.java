@@ -44,6 +44,46 @@ public class CompromissoService {
         return compromissoRepository.findByUsuario(usuario);
     }
 
+    public Compromisso atualizarCompromisso(Long id, CompromissoRequest request) {
+        String emailUsuario = getUsuarioAutenticado();
+        User usuario = userRepository.findByEmail(emailUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        Compromisso compromisso = compromissoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+
+        // Verifica se o compromisso pertence ao usuário autenticado
+        if (!compromisso.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("Usuário não tem permissão para editar este compromisso");
+        }
+
+        // Atualiza os campos permitidos
+        compromisso.setTitulo(request.getTitulo());
+        compromisso.setDescricao(request.getDescricao());
+        compromisso.setDataHoraInicio(request.getDataHoraInicio());
+        compromisso.setDataHoraFim(request.getDataHoraFim());
+
+        return compromissoRepository.save(compromisso);
+    }
+
+    public void deletarCompromisso(Long id) {
+        String emailUsuario = getUsuarioAutenticado();
+        User usuario = userRepository.findByEmail(emailUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        Compromisso compromisso = compromissoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+
+        // Verifica se o compromisso pertence ao usuário autenticado
+        if (!compromisso.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("Usuário não tem permissão para deletar este compromisso");
+        }
+
+        compromissoRepository.delete(compromisso);
+    }
+
+
+
     private String getUsuarioAutenticado() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails userDetails) {
