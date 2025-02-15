@@ -1,18 +1,21 @@
 package com.gleywson.agenda.dto;
 
+import com.gleywson.agenda.model.Role;
 
 public class RegisterRequest {
     private String nome;
     private String email;
     private String password;
+    private Role role;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String nome, String email, String password) {
+    public RegisterRequest(String nome, String email, String password, Role role) {
         this.nome = nome;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public String getNome() {
@@ -39,5 +42,13 @@ public class RegisterRequest {
         this.password = password;
     }
 
+	public Role getRole() {
+		return role;
+	}
 
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+    
 }
