@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll() // Permite login e cadastro
                         .requestMatchers("/test/secure").authenticated() // Protege este endpoint
+                        .requestMatchers("/compromissos/**").authenticated() // Protege compromissos
                         .anyRequest().authenticated() // Protege qualquer outro endpoint
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // API sem estado
