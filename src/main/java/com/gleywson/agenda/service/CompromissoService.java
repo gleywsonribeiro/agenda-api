@@ -2,12 +2,17 @@ package com.gleywson.agenda.service;
 
 import com.gleywson.agenda.dto.CompromissoRequest;
 import com.gleywson.agenda.model.Compromisso;
+import com.gleywson.agenda.model.CompromissoCompartilhado;
 import com.gleywson.agenda.model.User;
+import com.gleywson.agenda.repository.CompromissoCompartilhadoRepository;
 import com.gleywson.agenda.repository.CompromissoRepository;
 import com.gleywson.agenda.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +20,9 @@ public class CompromissoService {
 
     private final CompromissoRepository compromissoRepository;
     private final UserRepository userRepository;
+
+    @Autowired
+    private CompromissoCompartilhadoRepository compartilhadoRepository;
 
     public CompromissoService(CompromissoRepository compromissoRepository, UserRepository userRepository) {
         this.compromissoRepository = compromissoRepository;
@@ -36,13 +44,28 @@ public class CompromissoService {
         return compromissoRepository.save(compromisso);
     }
 
-    public List<Compromisso> listarCompromissosDoUsuario() {
+    public List<Compromisso> listarCompromissos() {
         String emailUsuario = getUsuarioAutenticado();
         User usuario = userRepository.findByEmail(emailUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        return compromissoRepository.findByUsuario(usuario);
+        // Busca compromissos do próprio usuário
+        List<Compromisso> meusCompromissos = compromissoRepository.findByUsuario(usuario);
+
+        // Busca compromissos compartilhados com o usuário
+        List<Compromisso> compromissosCompartilhados = compartilhadoRepository.findByUsuario(usuario)
+                .stream()
+                .map(CompromissoCompartilhado::getCompromisso)
+                .toList();
+
+        // Junta os dois tipos de compromissos
+        List<Compromisso> todosCompromissos = new ArrayList<>();
+        todosCompromissos.addAll(meusCompromissos);
+        todosCompromissos.addAll(compromissosCompartilhados);
+
+        return todosCompromissos;
     }
+
 
     public Compromisso atualizarCompromisso(Long id, CompromissoRequest request) {
         String emailUsuario = getUsuarioAutenticado();

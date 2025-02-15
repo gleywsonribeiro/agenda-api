@@ -26,7 +26,7 @@ public class CompromissoController {
 
     @GetMapping
     public ResponseEntity<List<Compromisso>> listarCompromissos() {
-        return ResponseEntity.ok(compromissoService.listarCompromissosDoUsuario());
+        return ResponseEntity.ok(compromissoService.listarCompromissos());
     }
 
     @PutMapping("/{id}")
