@@ -2,11 +2,11 @@ package com.gleywson.agenda.dto;
 
 public class AuthRequest {
     private String email;
-    private String password;
+    private String senha;
 
-    public AuthRequest(String email, String password) {
+    public AuthRequest(String email, String senha) {
         this.email = email;
-        this.password = password;
+        this.senha = senha;
     }
 
     public AuthRequest() {
@@ -20,11 +20,11 @@ public class AuthRequest {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
