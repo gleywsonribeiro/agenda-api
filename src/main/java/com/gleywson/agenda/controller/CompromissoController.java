@@ -40,5 +40,10 @@ public class CompromissoController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}/remover-compartilhamento")
+    public ResponseEntity<Void> removerCompartilhamento(@PathVariable Long id, @RequestParam String emailUsuario) {
+        compromissoService.removerCompartilhamento(id, emailUsuario);
+        return ResponseEntity.noContent().build();
+    }
 
 }
