@@ -3,7 +3,6 @@ package com.gleywson.agenda.service;
 import com.gleywson.agenda.dto.CompartilhamentoRequest;
 import com.gleywson.agenda.model.Compromisso;
 import com.gleywson.agenda.model.CompromissoCompartilhado;
-import com.gleywson.agenda.model.Permissao;
 import com.gleywson.agenda.model.User;
 import com.gleywson.agenda.repository.CompromissoCompartilhadoRepository;
 import com.gleywson.agenda.repository.CompromissoRepository;
