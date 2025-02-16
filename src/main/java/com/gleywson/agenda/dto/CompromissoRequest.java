@@ -1,11 +1,18 @@
 package com.gleywson.agenda.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class CompromissoRequest {
+    @NotBlank
     private String titulo;
+    @NotBlank
     private String descricao;
+    @NotNull
     private LocalDateTime dataHoraInicio;
+    @NotNull
     private LocalDateTime dataHoraFim;
 
     // Construtor vazio

@@ -3,6 +3,7 @@ package com.gleywson.agenda.controller;
 import com.gleywson.agenda.dto.CompromissoRequest;
 import com.gleywson.agenda.model.Compromisso;
 import com.gleywson.agenda.service.CompromissoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class CompromissoController {
     }
 
     @PostMapping
-    public ResponseEntity<Compromisso> criarCompromisso(@RequestBody CompromissoRequest request) {
+    public ResponseEntity<Compromisso> criarCompromisso(@RequestBody @Valid CompromissoRequest request) {
         return ResponseEntity.ok(compromissoService.criarCompromisso(request));
     }
 
@@ -30,7 +31,7 @@ public class CompromissoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Compromisso> atualizarCompromisso(@PathVariable Long id, @RequestBody CompromissoRequest request) {
+    public ResponseEntity<Compromisso> atualizarCompromisso(@PathVariable Long id, @RequestBody @Valid CompromissoRequest request) {
         return ResponseEntity.ok(compromissoService.atualizarCompromisso(id, request));
     }
 
