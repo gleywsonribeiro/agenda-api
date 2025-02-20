@@ -156,6 +156,15 @@ public class CompromissoService {
         compromissoRepository.delete(compromisso);
     }
 
+    public Compromisso buscarPorId(Long id) {
+        String emailUsuario = getUsuarioAutenticado();
+        User usuario = userRepository.findByEmail(emailUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Busca compromissos do próprio usuário
+        return compromissoRepository.findByIdAndUsuario(id, usuario)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+    }
 
     /**
      * Retorna o email do usuário autenticado

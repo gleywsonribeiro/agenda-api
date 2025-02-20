@@ -47,4 +47,9 @@ public class CompromissoController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Compromisso> buscarPorId(@PathVariable Long id) {
+        Compromisso compromisso = compromissoService.buscarPorId(id);
+        return ResponseEntity.ok(compromisso);
+    }
 }
