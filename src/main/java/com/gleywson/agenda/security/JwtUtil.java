@@ -1,5 +1,6 @@
 package com.gleywson.agenda.security;
 
+import com.gleywson.agenda.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -18,9 +19,10 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(String email) {
+    public String generateToken(User user) {
         return Jwts.builder()
-                .subject(email)
+                .subject(user.getEmail())
+                .claim("nome", user.getNome())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey()) // Usa a chave correta para assinar
@@ -35,6 +37,16 @@ public class JwtUtil {
                 .getPayload()
                 .getSubject();
     }
+
+    public String extrairNome(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey()) // Agora usa `.verifyWith()` corretamente
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("nome", String.class); // Extrai o nome do payload
+    }
+
 
     public boolean isTokenValid(String token) {
         try {
