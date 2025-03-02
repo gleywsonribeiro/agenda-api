@@ -26,7 +26,7 @@ public class AuthService {
         User user = new User();
         user.setNome(request.getNome());
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword())); // Criptografa a senha antes de salvar
+        user.setPassword(passwordEncoder.encode(request.getSenha())); // Criptografa a senha antes de salvar
         user.setRole(request.getRole()); // Defina o papel do usuário
 
         userRepository.save(user);

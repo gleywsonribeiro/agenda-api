@@ -5,16 +5,16 @@ import com.gleywson.agenda.model.Role;
 public class RegisterRequest {
     private String nome;
     private String email;
-    private String password;
+    private String senha;
     private Role role;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String nome, String email, String password, Role role) {
+    public RegisterRequest(String nome, String email, String senha, Role role) {
         this.nome = nome;
         this.email = email;
-        this.password = password;
+        this.senha = senha;
         this.role = role;
     }
 
@@ -34,12 +34,12 @@ public class RegisterRequest {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 	public Role getRole() {
